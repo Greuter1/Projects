@@ -1,0 +1,45 @@
+#Customer's package weight input
+package_weight = 41.5
+
+#Ground shipping cost function
+def ground_shipping(package_weight):
+    cost = 0.00
+    flat_rate = 20.00
+    if package_weight <= 2.00:
+        cost = 1.50 * package_weight
+    elif package_weight <= 6.00:
+        cost = 3.00 * package_weight
+    elif package_weight <= 10.00:
+        cost = 4.00 * package_weight
+    else:
+        cost = 4.75 * package_weight
+    cost += flat_rate
+    return cost
+
+#Drone shipping cost function
+def drone_shipping(package_weight):
+    cost = 0.00
+    if package_weight <= 2.00:
+        cost = 4.50 * package_weight
+    elif package_weight <= 6.00:
+        cost = 9.00 * package_weight
+    elif package_weight <= 10.00:
+        cost = 12.00 * package_weight
+    else:
+        cost = 14.25 * package_weight
+    return cost
+
+#Best shipping cost function
+    
+def best_shipping_cost(package_weight):
+    ground_shipping_cost = ground_shipping(package_weight)
+    drone_shipping_cost = drone_shipping(package_weight)
+    premium_ground_shipping_cost = 125.00
+    if ground_shipping_cost <= drone_shipping_cost and ground_shipping_cost <= premium_ground_shipping_cost:
+        return "Your cheapest shipping method is ground shipping and will cost $" + str(ground_shipping_cost) + "."
+    elif drone_shipping_cost <= premium_ground_shipping_cost:
+        return "Your cheapest shipping method is drone shipping and will cost $" + str(drone_shipping_cost) + "."
+    else:
+        return "Your cheapest shipping method is premium ground shipping and will cost $" + str(premium_ground_shipping_cost) + "."
+
+print(best_shipping_cost(package_weight))
